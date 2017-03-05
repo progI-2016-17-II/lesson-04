@@ -1,0 +1,202 @@
+---
+title: "1. Elágazások és ciklusok"
+subtitle: |
+  | Kurzus: Programozás I. 4. óra
+author: |
+  | Oktató: Balogh Kitti kttblgh@gmail.com
+date: "Időpont: 2017-03-07"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = '../../')
+```
+
+## Vázlat
+
+- [Elágazások általában](#elagazasok-altalaban)
+- [Elágazások - if](#elagazasok-if)
+- [Elágazások - if és else](#elagazasok-if-es-else)
+- [Elágazások - ifelse](#elagazasok-ifelse)
+- [Ciklusok általában](#ciklusok-altalaban)
+- [Ciklusok - for](#ciklusok-for)
+- [Ciklusok - while](#ciklusok-while)
+- [Irodalom](#irodalom)
+
+## Elágazások általában
+
+- Elágazásokat akkor használunk, amikor valamilyen feltétel esetében bizonyos műveleteket szeretnénk elvégeztetni, ha pedig a feltétel nem teljesül, akkor más műveleteket, vagy semmilyen műveletet nem szeretnénk elvégeztetni.
+- A beszélt nyelvben ezt a "ha..., akkor..." szerkezetű mondattal szoktuk kifejezni.
+- R-ben az ```if```, az ```else``` és az ```ifelse``` a leggyakrabban használt elágazások, ritkábban ```switch```-csel is lehet találkozni.
+
+## Elágazások - if
+- A leggyakrabban használt elágazás az ```if```.
+- Lényegében ezt fejezi ki: Ha a feltétel igaz, akkor hajts végre valamilyen művelete(ke)t, különben ne csinálj semmit.
+- A feltétel tesztelését zárójelbe tesszük. A legalapvetőbb operátorok a feltétel tesztelésekor a ```==``` (egyenlő), a ```<``` (kisebb), a ```<=``` (kisebb egyenlő), a ```>``` (nagyobb), a ```>=``` (nagyobb egyenlő) és a ```!=``` (nem egyenlő).
+- Ha feltétel teljesül, akkor annak ```TRUE``` lesz az eredménye, ha nem teljesül, ```FALSE```.
+- A feltétel teljesülésekor végrehajtandó művelete(ke)t kapcsos zárójelek közé tesszük.
+- Az if szerkezete tehát valamennyire hasonlít a függvényekéhez.
+
+```{r, echo = TRUE, error = TRUE}
+#----Elágazások - if------------------------------------------------------------
+## if szerkezete
+```
+
+```
+if (feltétel) {
+  művelet
+}
+```
+
+```{r, echo = TRUE, error = TRUE}
+## Egyszerű if műveletek
+
+# hozzárendeljük az 1-es számot egy number objektumhoz
+number <- 1
+
+# azt a feltételt nézzük meg if-fel, hogy a number egyenlő-e 1-gyel
+# a feltétel igaz, teljesül, ezért végrehajtja a műveletet
+if (number == 1) {
+  print("Ez valóban 1.")
+}
+
+# azt a feltételt nézzük meg if-fel, hogy a number egyenlő-e 0-val
+# a feltétel nem teljesül, ezért nem hajt végre műveletet
+if (number == 0) {
+  print("Ez valóban 0.")
+}
+```
+
+## Elágazások - if és else
+- Előbb láttuk, hogy ha az ```if```-ben nem teljesül a feltétel, akkor nem történik semmi. Sokszor azonban azt szeretnénk, hogy ha nem teljesül, akkor valamilyen más művelet(ek) hajtódjanak végre. Ilyenkor használjuk az ```else```-t.
+- Az ```else``` után kapcsos zárójelbe írjuk a feltétel nem teljesülésekor végrehajtandó műveleteket.
+
+```{r, echo = TRUE, error = TRUE}
+#----Elágazások - if és else----------------------------------------------------
+## if és else szerkezete
+```
+```
+if (feltétel) {
+  művelet
+} else {
+  más művelet
+}
+```
+
+```{r, echo = TRUE, error = TRUE}
+## Egyszerű if-else műveletek
+
+# azt a feltételt nézzük meg if-fel, hogy a number egyenlő-e 1-gyel
+# a feltétel igaz, teljesül, ezért végrehajtja az if-ben megszabott műveletet
+if (number == 1) {
+  print("Ez valóban 1.")
+} else {
+  print("Ez nem 1.")
+}
+
+# azt a feltételt nézzük meg if-fel, hogy a number egyenlő-e 0-val
+# a feltétel nem teljesül, ezért az else-ben megszabott műveletet hajtja végre
+if (number == 0) {
+  print("Ez valóban 0.")
+} else {
+  print("Ez nem 0.")
+}
+
+## Függvénybe szerkesztve
+check_number <- function(number) {
+  if (number == 1) {
+    print("Ez valóban 1.")
+  } else {
+    print("Ez nem 1.")
+  }
+}
+
+check_number(1)
+check_number(100)
+check_number("a")
+```
+
+```{r, echo = TRUE, error = TRUE}
+## if és else szerkezete több feltétel esetén
+# 3 feltétel esetén:
+```
+```
+if (feltétel) {
+  művelet1
+} else if (feltétel2) {
+  művelet2
+} else if (feltétel3) {
+  művelet3
+} else {
+  művelet4
+}
+```
+```{r, echo = TRUE, error = TRUE}
+## Előző függvény több feltétel esetén
+check_number_complex <- function(number) {
+  if (number == 1) {
+    print("Ez valóban 1.")
+  } else if (number == 0) {
+    print("Ez 0.")
+  } else if (class(number) != "numeric") {
+    print("Ez nem is szám.")
+  } else {
+    print("Ez se nem 0, se nem 1, de valamilyen szám.")
+  }
+}
+
+check_number_complex(1)
+check_number_complex(0)
+check_number_complex(100)
+check_number_complex("a")
+  
+```
+## Elágazások - ifelse
+- Az ```ifelse``` előnye, hogy vektorizált, ezért adott esetben gyorsabb (és szebb is) ezt alkalmazni R-ben.
+- Az ```ifelse``` első argumentuma a feltétel, a második a feltétel teljesülésekor végrehajtandó művelet, a harmadik a feltétel nem teljesülésekor végrehajtandó művelet.
+```{r, echo = TRUE, error = TRUE}
+#----Elágazások - if------------------------------------------------------------
+## ifelse szerkezete
+```
+```
+ifelse(feltétel, művelet1, művelet2)
+```
+```{r, echo = TRUE, error = TRUE}
+## Egyszerű ifelse műveletek
+ifelse(number == 1, "Ez valóban 1.", "Ez nem 1.")
+
+ifelse(number == 0, "Ez valóban 1.", "Ez nem 1.")
+
+numbers <- c(1, 0, 1, 2)
+ifelse(numbers == 1, "Ez valóban 1.", "Ez nem 1.")
+ifelse(numbers == 1, numbers * 100, numbers)
+
+## Függvénybe szerkesztve
+# előző if-else-es check_number függvényt írjuk át
+check_number_v2 <- function(number) {
+  if (number == 1) {
+    print("Ez valóban 1.")
+  } else {
+    print("Ez nem 1.")
+  }
+}
+
+check_number_v2(1)
+check_number_v2(100)
+check_number_v2("a")
+
+# több feltétel esetén
+# előző check_number_complex függvényt írjuk át
+check_number_complex_v2 <- function(number) {
+  ifelse (number == 1, "Ez valóban 1.",
+          ifelse(number == 0, "Ez 0.",
+                 ifelse(class(number) != "numeric", "Ez nem is szám.", 
+                        "Ez se nem 0, se nem 1, de valamilyen szám.")))
+}
+
+check_number_complex_v2(1)
+check_number_complex_v2(0)
+check_number_complex_v2(100)
+check_number_complex_v2("a")
+```
