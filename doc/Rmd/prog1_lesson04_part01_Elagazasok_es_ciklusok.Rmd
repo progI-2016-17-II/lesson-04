@@ -18,10 +18,22 @@ knitr::opts_knit$set(root.dir = '../../')
 - [Elágazások általában](#elagazasok-altalaban)
 - [Elágazások - if](#elagazasok-if)
 - [Elágazások - if és else](#elagazasok-if-es-else)
+    - [If-else egy feltétel esetén](#if-else-egy-feltetel-eseten)
+    - [If-else több feltétel esetén](#if-else-tobb-feltetel-eseten)
+    - [If-else több feltétel egy feltételben való megadása esetén](#if-else-tobb-feltetel-egy-feltetelben-valo-megadasa-eseten)
 - [Elágazások - ifelse](#elagazasok-ifelse)
+    - [Ifelse egy feltétel esetén](#ifelse-egy-feltetel-eseten)
+    - [Ifelse több feltétel esetén](#ifelse-tobb-feltetel-eseten)
+    - [Ifelse több feltétel egy feltételben való megadása esetén](#ifelse-tobb-feltetel-egy-feltetelben-valo-megadasa-eseten)
 - [Ciklusok általában](#ciklusok-altalaban)
 - [Ciklusok - for](#ciklusok-for)
+    - [For ciklus vektorokkal](#for-ciklus-vektorokkal)
+    - [For ciklus mátrixokkal](#for-ciklus-mátrixokkal)
+    - [For ciklus data frame-ekkel](#for-ciklus-data-frame-ekkel)
+    - [For ciklus menetének befolyásolása](#for-ciklus-menetenek-befolyasolasa)
 - [Ciklusok - while](#ciklusok-while)
+    - [While ciklus mátrixokkal](#for-ciklus-mátrixokkal)
+    - [While ciklus data frame-ekkel](#for-ciklus-data-frame-ekkel)
 - [Irodalom](#irodalom)
 
 ## Elágazások általában
@@ -70,17 +82,18 @@ if (number == 0) {
 
 ## Elágazások - if és else
 - Előbb láttuk, hogy ha az ```if```-ben nem teljesül a feltétel, akkor nem történik semmi. Sokszor azonban azt szeretnénk, hogy ha nem teljesül, akkor valamilyen más művelet(ek) hajtódjanak végre. Ilyenkor használjuk az ```else```-t.
-- Az ```else``` után kapcsos zárójelbe írjuk a feltétel nem teljesülésekor végrehajtandó műveleteket.
+- Az ```else``` után kapcsos zárójelbe írjuk az előző feltétel nem teljesülésekor végrehajtandó művelete(ke)t.
 
+### If-else egy feltétel esetén
 ```{r, echo = TRUE, error = TRUE}
 #----Elágazások - if és else----------------------------------------------------
 ## if és else szerkezete
 ```
 ```
 if (feltétel) {
-  művelet
+  művelet1
 } else {
-  más művelet
+  művelet2
 }
 ```
 
@@ -117,6 +130,12 @@ check_number(100)
 check_number("a")
 ```
 
+### If-else több feltétel esetén
+
+- Ha egynél több feltételt szeretnénk tesztelni, úgy tudjuk megtenni, hogy egy ```if``` szerkezettel kezdünk, amiben megadjuk az első feltételt és a teljesülése esetén végrehajtandó műveletet.
+- Majd a további feltételek esetében az ```else if``` szerkezetet írunk, amnek pont olyan a szerlezete, mint az ```if```-nek. Ezt annyiszor ismételjük meg, ahány feltétel teljesülését szeretnénk ellenőrizni.
+- Végül egy ```else``` szerkezettel zárunk, ami azt a műveletet adja meg, ami az előző feltételek nem teljesülése esetén történjen.
+
 ```{r, echo = TRUE, error = TRUE}
 ## if és else szerkezete több feltétel esetén
 # 3 feltétel esetén:
@@ -152,11 +171,59 @@ check_number_complex(100)
 check_number_complex("a")
   
 ```
+### If-else több feltétel egy feltételben való megadása esetén
+- Ha egy feltételben több feltételt szeretnénk megnézni egyszerre, a ```&``` (és) vagy ```|``` (vagy) jeleket használhatjuk a feltételek összekapcsolására.
+
+```{r, echo = TRUE, error = TRUE}
+## if és else több feltétel egy feltételben való megadása esetén
+```
+```
+if (feltétel1 & feltétel2) {
+  művelet1
+} else {
+  művelet2
+}
+
+if (feltétel1 | feltétel2) {
+  művelet1
+} else {
+  művelet2
+}
+```
+```{r, echo = TRUE, error = TRUE}
+## check_number függvény több feltétel együttes megadása esetén - or
+check_number_or <- function(number) {
+  if (number == 1 | number == 0) {
+    print("Ez 0 vagy 1.")
+  } else {
+    print("Ez se nem 0, se nem 1.")
+  }
+}
+
+check_number_or(1)
+check_number_or(100)
+
+## check_number függvény több feltétel együttes megadása esetén - and
+check_number_and <- function(number) {
+  if (number < 2 & number >= 0) {
+    print("Ez 0 vagy 1.")
+  } else {
+    print("Ez se nem 0, se nem 1.")
+  }
+}
+
+check_number_and(1)
+check_number_and(100)
+```
+
+
 ## Elágazások - ifelse
 - Az ```ifelse``` előnye, hogy vektorizált, ezért adott esetben gyorsabb (és szebb is) ezt alkalmazni R-ben.
 - Az ```ifelse``` első argumentuma a feltétel, a második a feltétel teljesülésekor végrehajtandó művelet, a harmadik a feltétel nem teljesülésekor végrehajtandó művelet.
+
+### Ifelse egy feltétel esetén
 ```{r, echo = TRUE, error = TRUE}
-#----Elágazások - if------------------------------------------------------------
+#----Elágazások - ifelse--------------------------------------------------------
 ## ifelse szerkezete
 ```
 ```
@@ -185,8 +252,11 @@ check_number_v2 <- function(number) {
 check_number_v2(1)
 check_number_v2(100)
 check_number_v2("a")
+```
 
-# több feltétel esetén
+### Ifelse több feltétel esetén
+```{r, echo = TRUE, error = TRUE}
+## ifelse több feltétel esetén
 # előző check_number_complex függvényt írjuk át
 check_number_complex_v2 <- function(number) {
   ifelse (number == 1, "Ez valóban 1.",
@@ -200,3 +270,222 @@ check_number_complex_v2(0)
 check_number_complex_v2(100)
 check_number_complex_v2("a")
 ```
+
+### Ifelse több feltétel egy feltételben való megadása esetén
+
+```{r, echo = TRUE, error = TRUE}
+## ifelse több feltétel egy feltételben való megadása esetén
+# check_number_or függvényt írjuk át
+check_number_or_v2 <- function(number) {
+  ifelse(number == 1 | number == 0, "Ez 0 vagy 1.", "Ez se nem 0, se nem 1.")
+}
+
+check_number_or(1)
+check_number_or(100)
+
+# check_number_and függvényt írjuk át
+check_number_and_v2 <- function(number) {
+  ifelse(number < 2 & number >= 0, "Ez 0 vagy 1.", "Ez se nem 0, se nem 1.")
+}
+
+check_number_and(1)
+check_number_and(100)
+```
+
+## Ciklusok általában
+- Amikor R-t tanulunk, általában akkor használunk ciklusokat, amikor végig szeretnénk iterálni egy data frame, egy vektor, egy mátrix vagy egy lista elemein.
+- A ciklusok írása más nyelvekben teljesen természetes, R-ben viszont inkább arra törekszünk, hogy vektorizáltan írjunk kódot, amivel gyorsabbá, hatékonyabbá, áttekinthetőbbé tesszük a folyamatokat. A ciklusok tehát R-ben legtöbbször mellőzendők
+- Mégis sokan használják a ```for``` és ```while``` ciklusokat, valamint érdemes tisztában lenni a működésükkel, ezért ezen az órán megismerjük ezt a két ciklusfajtát.
+- Következő órán a vektorizált megfelelőiket fogjuk venni.
+
+## Ciklusok - for
+- A leggyakrabban használt ciklus a ```for``` ciklus.
+- A ```for``` ciklus egy vektorral meghatározott indexsoron iterál végig és az adott iterációban sorra jövő index felhasználásával végez műveleteket.
+- Például ha egy 10 soros data frame soraival szeretnénk valamilyen műveletet végezni, akkor egy 1-10-ig tartó vektorral végig tudunk iterálni a data frame sorain, ha a vektor elemeit használjuk indexként.
+- A ```for``` ciklus szerkezete hasonló a függvényekéhez vagy például az ```if```-hez. A ```for``` utáni zárójelnek három tagja van: az első az index, a második az in szó, a harmadik a vektor, ami az indexeket meghatározza. Ezután kapcsos zárójelbe tesszük az(oka)t a művelet(ek)et, ami(k)nek a végrehajtásához az indexet vesszük segítségül.
+
+```{r, echo = TRUE, error = TRUE}
+#----Ciklusok - for-------------------------------------------------------------
+## for ciklus szerkezete
+```
+```
+for (i in vector) {
+  művelet(ek) i index segítségével
+}
+```
+```{r, echo = TRUE, error = TRUE}
+## Egyszerű for ciklusok
+
+# printeljük ki az egész számokat 1-től 10-ig
+for (i in 1:10) {
+  print(i)
+}
+```
+
+### For ciklus vektorokkal
+```{r, echo = TRUE, error = TRUE}
+## Iterálás vektor elemein for ciklussal
+# hozzunk létre egy vektort páratlan számokkal 1-től 10-ig
+odd_numbers <- seq(1, 10, by = 2)
+odd_numbers
+
+even_numbers <- NA
+# adjunk hozzá minden elemhez 1-t
+for (i in 1:length(odd_numbers)) {
+  even_numbers[i] <- odd_numbers[i] + 1
+}
+even_numbers
+
+# nincs sok értelme, a matematikai műveletek alapból vektorizáltak
+odd_numbers + 1
+
+```
+
+### For ciklus mátrixokkal
+```{r, echo = TRUE, error = TRUE}
+## Iterálás mátrix elemein for ciklussal
+# készítsünk egy 5x2-ös mátrixot, ami 1-től 10-ig tartalmazza az egész számokat
+m <- matrix(1:10, 5, 2)
+m
+
+# adjunk hozzá minden sor első oszlopában lévő elemhez 100-at
+for (j in 1:nrow(m)) {
+  m[j, 1] <- m[j, 1] + 100
+}
+m
+
+# osszuk el 2-vel minden oszlop 3. elemét
+for (k in 1:ncol(m)) {
+  m[3, k] <- m[3, k] / 2
+}
+m
+
+```
+
+### For ciklus data frame-ekkel
+```{r, echo = TRUE, error = TRUE}
+## Iterálás data frame elemein for ciklussal
+# készítsünk egy 5 sorból és 2 oszlopból álló data frame-et
+df <- data.frame(numbers = 1:5, letters = c("a", "b", "c", "d", "e"),
+                  stringsAsFactors = F)
+df
+
+# szorozzuk meg 2-vel a numbers oszlopban lévő elemeket
+for (i in 1:nrow(df)){
+  df$numbers[i] <- df$numbers[i] * 2
+}
+df
+
+# fűzzünk hozzá egy "a" betűt a letters oszlop minden eleméhez 
+for (j in 1:nrow(df)){
+  df$letters[j] <- paste0(df$letters[j], "a")
+}
+df
+
+```
+
+### For ciklus menetének befolyásolása
+- A ciklus menetét meg is tudjuk törni vagy át is léptethetünk egy-egy iterálást
+- Előbbit a ```break```, utóbbit a ```next``` függvénnyel tudjuk elérni.
+```{r, echo = TRUE, error = TRUE}
+## For ciklus menetének befolyásolása
+
+## next
+# printeljük ki az egész számokat 1-től 10-ig, de hagyjuk ki a 3-ast
+for (i in 1:10) {
+  if (i == 3) {
+    next
+  }
+  print(i)
+}
+
+## break
+# készítsünk egy for ciklust, ami alapesetben kiprintelné az egész számokat
+# 1-től 10-ig, de csak 3-ig engedjük
+for (i in 1:10) {
+  if (i == 4) {
+    break
+  }
+  print(i)
+}
+```
+
+## Ciklusok - while
+- A ```while``` ciklus addig futtatja egy műveletet vagy műveleteket, amíg a meghatározott feltétel teljesül.
+- A feltételt zárójelbe írjuk, a művelete(ke)t kapcsos zárójelbe.
+- A ```while``` ciklussal általában könnyen bele szoktak futni végtelen ciklusokba.
+
+```{r, echo = TRUE, error = TRUE}
+#----Ciklusok - while-----------------------------------------------------------
+## while ciklus szerkezete
+```
+```
+while (feltétel) {
+  művelet
+}
+```
+```{r, echo = TRUE, error = TRUE}
+## Egyszerű while ciklusok
+
+# printeljük ki az egész számokat 1-től 10-ig
+x <- 1
+while (x <= 10) {
+  print(x)
+  x <- x + 1
+}
+```
+
+### While ciklus data frame-ekkel
+```{r, echo = TRUE, error = TRUE}
+## Iterálás mátrix elemein for ciklussal
+# készítsünk egy 5x2-ös mátrixot, ami 1-től 10-ig tartalmazza az egész számokat
+m <- matrix(1:10, 5, 2)
+m
+
+# adjunk hozzá minden sor első oszlopában lévő elemhez 100-at
+j <- 1
+while (j <= nrow(m)) {
+  m[j, 1] <- m[j, 1] + 100
+  j <- j + 1
+}
+m
+
+# osszuk el 2-vel minden oszlop 3. elemét
+k <- 1
+while (k <= ncol(m)) {
+  m[3, k] <- m[3, k] / 2
+  k <- k + 1
+}
+m
+```
+
+### While ciklus data frame-ekkel
+```{r, echo = TRUE, error = TRUE}
+## Iterálás data frame elemein for ciklussal
+# készítsünk egy 5 sorból és 2 oszlopból álló data frame-et
+df <- data.frame(numbers = 1:5, letters = c("a", "b", "c", "d", "e"),
+                  stringsAsFactors = F)
+df
+
+# szorozzuk meg 2-vel a numbers oszlopban lévő elemeket
+i <- 1
+while (i <= nrow(df)){
+  df$numbers[i] <- df$numbers[i] * 2
+  i <- i + 1
+}
+df
+
+# fűzzünk hozzá egy "a" betűt a letters oszlop minden eleméhez 
+j <- 1
+while (j <= nrow(df)){
+  df$letters[j] <- paste0(df$letters[j], "a")
+  j <- j + 1
+}
+df
+
+```
+
+## Irodalom
+- Lander 9-10
+- Crawley 2.10.1-2.10.3
+- Matloff 7.1

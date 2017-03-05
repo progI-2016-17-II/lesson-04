@@ -130,11 +130,31 @@ $(document).ready(function () {
 <ul>
 <li><a href="#elagazasok-altalaban">Elágazások általában</a></li>
 <li><a href="#elagazasok-if">Elágazások - if</a></li>
-<li><a href="#elagazasok-if-es-else">Elágazások - if és else</a></li>
-<li><a href="#elagazasok-ifelse">Elágazások - ifelse</a></li>
+<li><a href="#elagazasok-if-es-else">Elágazások - if és else</a>
+<ul>
+<li><a href="#if-else-egy-feltetel-eseten">If-else egy feltétel esetén</a></li>
+<li><a href="#if-else-tobb-feltetel-eseten">If-else több feltétel esetén</a></li>
+<li><a href="#if-else-tobb-feltetel-egy-feltetelben-valo-megadasa-eseten">If-else több feltétel egy feltételben való megadása esetén</a></li>
+</ul></li>
+<li><a href="#elagazasok-ifelse">Elágazások - ifelse</a>
+<ul>
+<li><a href="#ifelse-egy-feltetel-eseten">Ifelse egy feltétel esetén</a></li>
+<li><a href="#ifelse-tobb-feltetel-eseten">Ifelse több feltétel esetén</a></li>
+<li><a href="#ifelse-tobb-feltetel-egy-feltetelben-valo-megadasa-eseten">Ifelse több feltétel egy feltételben való megadása esetén</a></li>
+</ul></li>
 <li><a href="#ciklusok-altalaban">Ciklusok általában</a></li>
-<li><a href="#ciklusok-for">Ciklusok - for</a></li>
-<li><a href="#ciklusok-while">Ciklusok - while</a></li>
+<li><a href="#ciklusok-for">Ciklusok - for</a>
+<ul>
+<li><a href="#for-ciklus-vektorokkal">For ciklus vektorokkal</a></li>
+<li><a href="#for-ciklus-mátrixokkal">For ciklus mátrixokkal</a></li>
+<li><a href="#for-ciklus-data-frame-ekkel">For ciklus data frame-ekkel</a></li>
+<li><a href="#for-ciklus-menetenek-befolyasolasa">For ciklus menetének befolyásolása</a></li>
+</ul></li>
+<li><a href="#ciklusok-while">Ciklusok - while</a>
+<ul>
+<li><a href="#for-ciklus-mátrixokkal">While ciklus mátrixokkal</a></li>
+<li><a href="#for-ciklus-data-frame-ekkel">While ciklus data frame-ekkel</a></li>
+</ul></li>
 <li><a href="#irodalom">Irodalom</a></li>
 </ul>
 </div>
@@ -182,14 +202,16 @@ if (number == 0) {
 <h2>Elágazások - if és else</h2>
 <ul>
 <li>Előbb láttuk, hogy ha az <code>if</code>-ben nem teljesül a feltétel, akkor nem történik semmi. Sokszor azonban azt szeretnénk, hogy ha nem teljesül, akkor valamilyen más művelet(ek) hajtódjanak végre. Ilyenkor használjuk az <code>else</code>-t.</li>
-<li>Az <code>else</code> után kapcsos zárójelbe írjuk a feltétel nem teljesülésekor végrehajtandó műveleteket.</li>
+<li>Az <code>else</code> után kapcsos zárójelbe írjuk az előző feltétel nem teljesülésekor végrehajtandó művelete(ke)t.</li>
 </ul>
+<div id="if-else-egy-feltetel-eseten" class="section level3">
+<h3>If-else egy feltétel esetén</h3>
 <pre class="r"><code>#----Elágazások - if és else----------------------------------------------------
 ## if és else szerkezete</code></pre>
 <pre><code>if (feltétel) {
-  művelet
+  művelet1
 } else {
-  más művelet
+  művelet2
 }</code></pre>
 <pre class="r"><code>## Egyszerű if-else műveletek
 
@@ -224,6 +246,14 @@ check_number(1)</code></pre>
 <pre><code>## [1] &quot;Ez nem 1.&quot;</code></pre>
 <pre class="r"><code>check_number(&quot;a&quot;)</code></pre>
 <pre><code>## [1] &quot;Ez nem 1.&quot;</code></pre>
+</div>
+<div id="if-else-tobb-feltetel-eseten" class="section level3">
+<h3>If-else több feltétel esetén</h3>
+<ul>
+<li>Ha egynél több feltételt szeretnénk tesztelni, úgy tudjuk megtenni, hogy egy <code>if</code> szerkezettel kezdünk, amiben megadjuk az első feltételt és a teljesülése esetén végrehajtandó műveletet.</li>
+<li>Majd a további feltételek esetében az <code>else if</code> szerkezetet írunk, amnek pont olyan a szerlezete, mint az <code>if</code>-nek. Ezt annyiszor ismételjük meg, ahány feltétel teljesülését szeretnénk ellenőrizni.</li>
+<li>Végül egy <code>else</code> szerkezettel zárunk, ami azt a műveletet adja meg, ami az előző feltételek nem teljesülése esetén történjen.</li>
+</ul>
 <pre class="r"><code>## if és else szerkezete több feltétel esetén
 # 3 feltétel esetén:</code></pre>
 <pre><code>if (feltétel) {
@@ -257,13 +287,60 @@ check_number_complex(1)</code></pre>
 <pre class="r"><code>check_number_complex(&quot;a&quot;)</code></pre>
 <pre><code>## [1] &quot;Ez nem is szám.&quot;</code></pre>
 </div>
+<div id="if-else-tobb-feltetel-egy-feltetelben-valo-megadasa-eseten" class="section level3">
+<h3>If-else több feltétel egy feltételben való megadása esetén</h3>
+<ul>
+<li>Ha egy feltételben több feltételt szeretnénk megnézni egyszerre, a <code>&amp;</code> (és) vagy <code>|</code> (vagy) jeleket használhatjuk a feltételek összekapcsolására.</li>
+</ul>
+<pre class="r"><code>## if és else több feltétel egy feltételben való megadása esetén</code></pre>
+<pre><code>if (feltétel1 &amp; feltétel2) {
+  művelet1
+} else {
+  művelet2
+}
+
+if (feltétel1 | feltétel2) {
+  művelet1
+} else {
+  művelet2
+}</code></pre>
+<pre class="r"><code>## check_number függvény több feltétel együttes megadása esetén - or
+check_number_or &lt;- function(number) {
+  if (number == 1 | number == 0) {
+    print(&quot;Ez 0 vagy 1.&quot;)
+  } else {
+    print(&quot;Ez se nem 0, se nem 1.&quot;)
+  }
+}
+
+check_number_or(1)</code></pre>
+<pre><code>## [1] &quot;Ez 0 vagy 1.&quot;</code></pre>
+<pre class="r"><code>check_number_or(100)</code></pre>
+<pre><code>## [1] &quot;Ez se nem 0, se nem 1.&quot;</code></pre>
+<pre class="r"><code>## check_number függvény több feltétel együttes megadása esetén - and
+check_number_and &lt;- function(number) {
+  if (number &lt; 2 &amp; number &gt;= 0) {
+    print(&quot;Ez 0 vagy 1.&quot;)
+  } else {
+    print(&quot;Ez se nem 0, se nem 1.&quot;)
+  }
+}
+
+check_number_and(1)</code></pre>
+<pre><code>## [1] &quot;Ez 0 vagy 1.&quot;</code></pre>
+<pre class="r"><code>check_number_and(100)</code></pre>
+<pre><code>## [1] &quot;Ez se nem 0, se nem 1.&quot;</code></pre>
+</div>
+</div>
 <div id="elagazasok---ifelse" class="section level2">
 <h2>Elágazások - ifelse</h2>
 <ul>
 <li>Az <code>ifelse</code> előnye, hogy vektorizált, ezért adott esetben gyorsabb (és szebb is) ezt alkalmazni R-ben.</li>
 <li>Az <code>ifelse</code> első argumentuma a feltétel, a második a feltétel teljesülésekor végrehajtandó művelet, a harmadik a feltétel nem teljesülésekor végrehajtandó művelet.</li>
 </ul>
-<pre class="r"><code>#----Elágazások - if------------------------------------------------------------
+<div id="ifelse-egy-feltetel-eseten" class="section level3">
+<h3>Ifelse egy feltétel esetén</h3>
+<pre class="r"><code>#----Elágazások - ifelse--------------------------------------------------------
 ## ifelse szerkezete</code></pre>
 <pre><code>ifelse(feltétel, művelet1, művelet2)</code></pre>
 <pre class="r"><code>## Egyszerű ifelse műveletek
@@ -292,7 +369,10 @@ check_number_v2(1)</code></pre>
 <pre><code>## [1] &quot;Ez nem 1.&quot;</code></pre>
 <pre class="r"><code>check_number_v2(&quot;a&quot;)</code></pre>
 <pre><code>## [1] &quot;Ez nem 1.&quot;</code></pre>
-<pre class="r"><code># több feltétel esetén
+</div>
+<div id="ifelse-tobb-feltetel-eseten" class="section level3">
+<h3>Ifelse több feltétel esetén</h3>
+<pre class="r"><code>## ifelse több feltétel esetén
 # előző check_number_complex függvényt írjuk át
 check_number_complex_v2 &lt;- function(number) {
   ifelse (number == 1, &quot;Ez valóban 1.&quot;,
@@ -309,13 +389,313 @@ check_number_complex_v2(1)</code></pre>
 <pre><code>## [1] &quot;Ez se nem 0, se nem 1, de valamilyen szám.&quot;</code></pre>
 <pre class="r"><code>check_number_complex_v2(&quot;a&quot;)</code></pre>
 <pre><code>## [1] &quot;Ez nem is szám.&quot;</code></pre>
-<pre class="r"><code>system.time(check_number_complex(&quot;a&quot;))</code></pre>
-<pre><code>## [1] &quot;Ez nem is szám.&quot;</code></pre>
-<pre><code>##    user  system elapsed 
-##       0       0       0</code></pre>
-<pre class="r"><code>system.time(check_number_complex_v2(&quot;a&quot;))</code></pre>
-<pre><code>##    user  system elapsed 
-##       0       0       0</code></pre>
+</div>
+<div id="ifelse-tobb-feltetel-egy-feltetelben-valo-megadasa-eseten" class="section level3">
+<h3>Ifelse több feltétel egy feltételben való megadása esetén</h3>
+<pre class="r"><code>## ifelse több feltétel egy feltételben való megadása esetén
+# check_number_or függvényt írjuk át
+check_number_or_v2 &lt;- function(number) {
+  ifelse(number == 1 | number == 0, &quot;Ez 0 vagy 1.&quot;, &quot;Ez se nem 0, se nem 1.&quot;)
+}
+
+check_number_or(1)</code></pre>
+<pre><code>## [1] &quot;Ez 0 vagy 1.&quot;</code></pre>
+<pre class="r"><code>check_number_or(100)</code></pre>
+<pre><code>## [1] &quot;Ez se nem 0, se nem 1.&quot;</code></pre>
+<pre class="r"><code># check_number_and függvényt írjuk át
+check_number_and_v2 &lt;- function(number) {
+  ifelse(number &lt; 2 &amp; number &gt;= 0, &quot;Ez 0 vagy 1.&quot;, &quot;Ez se nem 0, se nem 1.&quot;)
+}
+
+check_number_and(1)</code></pre>
+<pre><code>## [1] &quot;Ez 0 vagy 1.&quot;</code></pre>
+<pre class="r"><code>check_number_and(100)</code></pre>
+<pre><code>## [1] &quot;Ez se nem 0, se nem 1.&quot;</code></pre>
+</div>
+</div>
+<div id="ciklusok-altalaban" class="section level2">
+<h2>Ciklusok általában</h2>
+<ul>
+<li>Amikor R-t tanulunk, általában akkor használunk ciklusokat, amikor végig szeretnénk iterálni egy data frame, egy vektor, egy mátrix vagy egy lista elemein.</li>
+<li>A ciklusok írása más nyelvekben teljesen természetes, R-ben viszont inkább arra törekszünk, hogy vektorizáltan írjunk kódot, amivel gyorsabbá, hatékonyabbá, áttekinthetőbbé tesszük a folyamatokat. A ciklusok tehát R-ben legtöbbször mellőzendők</li>
+<li>Mégis sokan használják a <code>for</code> és <code>while</code> ciklusokat, valamint érdemes tisztában lenni a működésükkel, ezért ezen az órán megismerjük ezt a két ciklusfajtát.</li>
+<li>Következő órán a vektorizált megfelelőiket fogjuk venni.</li>
+</ul>
+</div>
+<div id="ciklusok---for" class="section level2">
+<h2>Ciklusok - for</h2>
+<ul>
+<li>A leggyakrabban használt ciklus a <code>for</code> ciklus.</li>
+<li>A <code>for</code> ciklus egy vektorral meghatározott indexsoron iterál végig és az adott iterációban sorra jövő index felhasználásával végez műveleteket.</li>
+<li>Például ha egy 10 soros data frame soraival szeretnénk valamilyen műveletet végezni, akkor egy 1-10-ig tartó vektorral végig tudunk iterálni a data frame sorain, ha a vektor elemeit használjuk indexként.</li>
+<li>A <code>for</code> ciklus szerkezete hasonló a függvényekéhez vagy például az <code>if</code>-hez. A <code>for</code> utáni zárójelnek három tagja van: az első az index, a második az in szó, a harmadik a vektor, ami az indexeket meghatározza. Ezután kapcsos zárójelbe tesszük az(oka)t a művelet(ek)et, ami(k)nek a végrehajtásához az indexet vesszük segítségül.</li>
+</ul>
+<pre class="r"><code>#----Ciklusok - for-------------------------------------------------------------
+## for ciklus szerkezete</code></pre>
+<pre><code>for (i in vector) {
+  művelet(ek) i index segítségével
+}</code></pre>
+<pre class="r"><code>## Egyszerű for ciklusok
+
+# printeljük ki az egész számokat 1-től 10-ig
+for (i in 1:10) {
+  print(i)
+}</code></pre>
+<pre><code>## [1] 1
+## [1] 2
+## [1] 3
+## [1] 4
+## [1] 5
+## [1] 6
+## [1] 7
+## [1] 8
+## [1] 9
+## [1] 10</code></pre>
+<div id="for-ciklus-vektorokkal" class="section level3">
+<h3>For ciklus vektorokkal</h3>
+<pre class="r"><code>## Iterálás vektor elemein for ciklussal
+# hozzunk létre egy vektort páratlan számokkal 1-től 10-ig
+odd_numbers &lt;- seq(1, 10, by = 2)
+odd_numbers</code></pre>
+<pre><code>## [1] 1 3 5 7 9</code></pre>
+<pre class="r"><code>even_numbers &lt;- NA
+# adjunk hozzá minden elemhez 1-t
+for (i in 1:length(odd_numbers)) {
+  even_numbers[i] &lt;- odd_numbers[i] + 1
+}
+even_numbers</code></pre>
+<pre><code>## [1]  2  4  6  8 10</code></pre>
+<pre class="r"><code># nincs sok értelme, a matematikai műveletek alapból vektorizáltak
+odd_numbers + 1</code></pre>
+<pre><code>## [1]  2  4  6  8 10</code></pre>
+</div>
+<div id="for-ciklus-matrixokkal" class="section level3">
+<h3>For ciklus mátrixokkal</h3>
+<pre class="r"><code>## Iterálás mátrix elemein for ciklussal
+# készítsünk egy 5x2-ös mátrixot, ami 1-től 10-ig tartalmazza az egész számokat
+m &lt;- matrix(1:10, 5, 2)
+m</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    1    6
+## [2,]    2    7
+## [3,]    3    8
+## [4,]    4    9
+## [5,]    5   10</code></pre>
+<pre class="r"><code># adjunk hozzá minden sor első oszlopában lévő elemhez 100-at
+for (j in 1:nrow(m)) {
+  m[j, 1] &lt;- m[j, 1] + 100
+}
+m</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]  101    6
+## [2,]  102    7
+## [3,]  103    8
+## [4,]  104    9
+## [5,]  105   10</code></pre>
+<pre class="r"><code># osszuk el 2-vel minden oszlop 3. elemét
+for (k in 1:ncol(m)) {
+  m[3, k] &lt;- m[3, k] / 2
+}
+m</code></pre>
+<pre><code>##       [,1] [,2]
+## [1,] 101.0    6
+## [2,] 102.0    7
+## [3,]  51.5    4
+## [4,] 104.0    9
+## [5,] 105.0   10</code></pre>
+</div>
+<div id="for-ciklus-data-frame-ekkel" class="section level3">
+<h3>For ciklus data frame-ekkel</h3>
+<pre class="r"><code>## Iterálás data frame elemein for ciklussal
+# készítsünk egy 5 sorból és 2 oszlopból álló data frame-et
+df &lt;- data.frame(numbers = 1:5, letters = c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;),
+                  stringsAsFactors = F)
+df</code></pre>
+<pre><code>##   numbers letters
+## 1       1       a
+## 2       2       b
+## 3       3       c
+## 4       4       d
+## 5       5       e</code></pre>
+<pre class="r"><code># szorozzuk meg 2-vel a numbers oszlopban lévő elemeket
+for (i in 1:nrow(df)){
+  df$numbers[i] &lt;- df$numbers[i] * 2
+}
+df</code></pre>
+<pre><code>##   numbers letters
+## 1       2       a
+## 2       4       b
+## 3       6       c
+## 4       8       d
+## 5      10       e</code></pre>
+<pre class="r"><code># fűzzünk hozzá egy &quot;a&quot; betűt a letters oszlop minden eleméhez 
+for (j in 1:nrow(df)){
+  df$letters[j] &lt;- paste0(df$letters[j], &quot;a&quot;)
+}
+df</code></pre>
+<pre><code>##   numbers letters
+## 1       2      aa
+## 2       4      ba
+## 3       6      ca
+## 4       8      da
+## 5      10      ea</code></pre>
+</div>
+<div id="for-ciklus-menetenek-befolyasolasa" class="section level3">
+<h3>For ciklus menetének befolyásolása</h3>
+<ul>
+<li>A ciklus menetét meg is tudjuk törni vagy át is léptethetünk egy-egy iterálást</li>
+<li>Előbbit a <code>break</code>, utóbbit a <code>next</code> függvénnyel tudjuk elérni.</li>
+</ul>
+<pre class="r"><code>## For ciklus menetének befolyásolása
+
+## next
+# printeljük ki az egész számokat 1-től 10-ig, de hagyjuk ki a 3-ast
+for (i in 1:10) {
+  if (i == 3) {
+    next
+  }
+  print(i)
+}</code></pre>
+<pre><code>## [1] 1
+## [1] 2
+## [1] 4
+## [1] 5
+## [1] 6
+## [1] 7
+## [1] 8
+## [1] 9
+## [1] 10</code></pre>
+<pre class="r"><code>## break
+# készítsünk egy for ciklust, ami alapesetben kiprintelné az egész számokat
+# 1-től 10-ig, de csak 3-ig engedjük
+for (i in 1:10) {
+  if (i == 4) {
+    break
+  }
+  print(i)
+}</code></pre>
+<pre><code>## [1] 1
+## [1] 2
+## [1] 3</code></pre>
+</div>
+</div>
+<div id="ciklusok---while" class="section level2">
+<h2>Ciklusok - while</h2>
+<ul>
+<li>A <code>while</code> ciklus addig futtatja egy műveletet vagy műveleteket, amíg a meghatározott feltétel teljesül.</li>
+<li>A feltételt zárójelbe írjuk, a művelete(ke)t kapcsos zárójelbe.</li>
+<li>A <code>while</code> ciklussal általában könnyen bele szoktak futni végtelen ciklusokba.</li>
+</ul>
+<pre class="r"><code>#----Ciklusok - while-----------------------------------------------------------
+## while ciklus szerkezete</code></pre>
+<pre><code>while (feltétel) {
+  művelet
+}</code></pre>
+<pre class="r"><code>## Egyszerű while ciklusok
+
+# printeljük ki az egész számokat 1-től 10-ig
+x &lt;- 1
+while (x &lt;= 10) {
+  print(x)
+  x &lt;- x + 1
+}</code></pre>
+<pre><code>## [1] 1
+## [1] 2
+## [1] 3
+## [1] 4
+## [1] 5
+## [1] 6
+## [1] 7
+## [1] 8
+## [1] 9
+## [1] 10</code></pre>
+<div id="while-ciklus-data-frame-ekkel" class="section level3">
+<h3>While ciklus data frame-ekkel</h3>
+<pre class="r"><code>## Iterálás mátrix elemein for ciklussal
+# készítsünk egy 5x2-ös mátrixot, ami 1-től 10-ig tartalmazza az egész számokat
+m &lt;- matrix(1:10, 5, 2)
+m</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    1    6
+## [2,]    2    7
+## [3,]    3    8
+## [4,]    4    9
+## [5,]    5   10</code></pre>
+<pre class="r"><code># adjunk hozzá minden sor első oszlopában lévő elemhez 100-at
+j &lt;- 1
+while (j &lt;= nrow(m)) {
+  m[j, 1] &lt;- m[j, 1] + 100
+  j &lt;- j + 1
+}
+m</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]  101    6
+## [2,]  102    7
+## [3,]  103    8
+## [4,]  104    9
+## [5,]  105   10</code></pre>
+<pre class="r"><code># osszuk el 2-vel minden oszlop 3. elemét
+k &lt;- 1
+while (k &lt;= ncol(m)) {
+  m[3, k] &lt;- m[3, k] / 2
+  k &lt;- k + 1
+}
+m</code></pre>
+<pre><code>##       [,1] [,2]
+## [1,] 101.0    6
+## [2,] 102.0    7
+## [3,]  51.5    4
+## [4,] 104.0    9
+## [5,] 105.0   10</code></pre>
+</div>
+<div id="while-ciklus-data-frame-ekkel-1" class="section level3">
+<h3>While ciklus data frame-ekkel</h3>
+<pre class="r"><code>## Iterálás data frame elemein for ciklussal
+# készítsünk egy 5 sorból és 2 oszlopból álló data frame-et
+df &lt;- data.frame(numbers = 1:5, letters = c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;),
+                  stringsAsFactors = F)
+df</code></pre>
+<pre><code>##   numbers letters
+## 1       1       a
+## 2       2       b
+## 3       3       c
+## 4       4       d
+## 5       5       e</code></pre>
+<pre class="r"><code># szorozzuk meg 2-vel a numbers oszlopban lévő elemeket
+i &lt;- 1
+while (i &lt;= nrow(df)){
+  df$numbers[i] &lt;- df$numbers[i] * 2
+  i &lt;- i + 1
+}
+df</code></pre>
+<pre><code>##   numbers letters
+## 1       2       a
+## 2       4       b
+## 3       6       c
+## 4       8       d
+## 5      10       e</code></pre>
+<pre class="r"><code># fűzzünk hozzá egy &quot;a&quot; betűt a letters oszlop minden eleméhez 
+j &lt;- 1
+while (j &lt;= nrow(df)){
+  df$letters[j] &lt;- paste0(df$letters[j], &quot;a&quot;)
+  j &lt;- j + 1
+}
+df</code></pre>
+<pre><code>##   numbers letters
+## 1       2      aa
+## 2       4      ba
+## 3       6      ca
+## 4       8      da
+## 5      10      ea</code></pre>
+</div>
+</div>
+<div id="irodalom" class="section level2">
+<h2>Irodalom</h2>
+<ul>
+<li>Lander 9-10</li>
+<li>Crawley 2.10.1-2.10.3</li>
+<li>Matloff 7.1</li>
+</ul>
 </div>
 
 
