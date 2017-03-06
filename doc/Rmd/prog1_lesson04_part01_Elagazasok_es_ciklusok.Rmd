@@ -242,11 +242,7 @@ ifelse(numbers == 1, numbers * 100, numbers)
 ## Függvénybe szerkesztve
 # előző if-else-es check_number függvényt írjuk át
 check_number_v2 <- function(number) {
-  if (number == 1) {
-    print("Ez valóban 1.")
-  } else {
-    print("Ez nem 1.")
-  }
+  ifelse (number == 1, "Ez valóban 1.", "Ez nem 1.")
 }
 
 check_number_v2(1)
@@ -342,7 +338,7 @@ odd_numbers + 1
 ```
 
 ### For ciklus mátrixokkal
-```{r, echo = TRUE, error = TRUE}
+```{r, echo = TRUE, error = TRUE, cache = FALSE}
 ## Iterálás mátrix elemein for ciklussal
 # készítsünk egy 5x2-ös mátrixot, ami 1-től 10-ig tartalmazza az egész számokat
 m <- matrix(1:10, 5, 2)
@@ -359,6 +355,35 @@ for (k in 1:ncol(m)) {
   m[3, k] <- m[3, k] / 2
 }
 m
+
+## Függvényesítve
+# függvény, ami hozzáad egy tetszőleges mátrix első oszlopában lévő 
+# elemeihez 100-at
+matrix_add_100 <- function(input_matrix) {
+  for (i in 1:nrow(input_matrix)) {
+    input_matrix[i, 1] <- input_matrix[i, 1] + 100
+  }
+  input_matrix
+}
+
+matrix_add_100(matrix(1:10, 5, 2))
+
+# függvény, ami elosztja adott számmal minden oszlop 3. elemét tetszőleges 
+# mátrixon
+# a mátrixnak legalább 3 sorának kell lennie
+matrix_divided <- function(input_matrix, divide_by = 2) {
+  if (nrow(input_matrix) >= 3) {
+      for (i in 1:ncol(input_matrix)) {
+        input_matrix[3, i] <- input_matrix[3, i] / divide_by
+      }
+      input_matrix
+  } else {
+    print("Ennek a mátrixnak kevesebb sora van, mint 3.")
+  }
+}
+
+matrix_divided(matrix(1:10, 5, 2), 3)
+matrix_divided(matrix(1:10, 2, 5), 3)
 
 ```
 
@@ -381,6 +406,42 @@ for (j in 1:nrow(df)){
   df$letters[j] <- paste0(df$letters[j], "a")
 }
 df
+
+## Függvényesítve
+# függvény, ami megszorozza egy tetszőleges df tetszőleges sorát adott számmal
+# a megadott oszlopnak számnak kell lennie
+df_multiply <- function(input_df, column, multiply_by = 2) {
+  if (class(input_df[[column]]) == "integer") {
+    for (i in 1:nrow(input_df)){
+      input_df[i, column] <- input_df[i, column] * multiply_by
+    }
+    input_df
+  } else {
+    print("A megadott oszlop nem szám típusú.")
+  }
+}
+
+df <- data.frame(numbers = 1:5, letters = c("a", "b", "c", "d", "e"),
+                  stringsAsFactors = F)
+df_multiply(df, "numbers")
+df_multiply(df, "letters")
+
+# függvény, ami egy tetszőleges df teszőleges oszlopához hozzáfűz
+# egy tetszőleges karaktert
+# a megadott oszlopnak karakter típusúnak kell lennie
+df_paste <- function(input_df, column, paste_character = "a") {
+  if (class(input_df[[column]]) == "character") {
+    for (i in 1:nrow(input_df)){
+      input_df[i, column] <- paste0(input_df[i, column], "a")
+    }
+    input_df
+  } else {
+    print("A megadott oszlop nem karakter típusú.")
+  }
+}
+
+df_paste(df, "numbers")
+df_paste(df, "letters")
 
 ```
 
@@ -437,7 +498,7 @@ while (x <= 10) {
 
 ### While ciklus data frame-ekkel
 ```{r, echo = TRUE, error = TRUE}
-## Iterálás mátrix elemein for ciklussal
+## Iterálás mátrix elemein while ciklussal
 # készítsünk egy 5x2-ös mátrixot, ami 1-től 10-ig tartalmazza az egész számokat
 m <- matrix(1:10, 5, 2)
 m
@@ -457,11 +518,46 @@ while (k <= ncol(m)) {
   k <- k + 1
 }
 m
+
+## Függvényesítve
+# függvény, ami hozzáad egy tetszőleges mátrix első oszlopában lévő 
+# elemeihez 100-at
+matrix_add_100_v2 <- function(input_matrix) {
+  i <- 1
+  while (i <= nrow(input_matrix)) {
+    input_matrix[i, 1] <- input_matrix[i, 1] + 100
+    i <- i + 1
+  }
+  input_matrix
+}
+
+matrix_add_100_v2(matrix(1:10, 5, 2))
+
+# függvény, ami elosztja adott számmal minden oszlop 3. elemét tetszőleges 
+# mátrixon
+# a mátrixnak legalább 3 sorának kell lennie
+matrix_divided_v2 <- function(input_matrix, divide_by = 2) {
+  if (nrow(input_matrix) >= 3) {
+      i <- 1
+      while (i <= ncol(input_matrix)) {
+        input_matrix[3, i] <- input_matrix[3, i] / divide_by
+        i <- i + 1
+      }
+      input_matrix
+  } else {
+    print("Ennek a mátrixnak kevesebb sora van, mint 3.")
+  }
+}
+
+matrix_divided_v2(matrix(1:10, 5, 2), 3)
+matrix_divided_v2(matrix(1:10, 2, 5), 3)
+
+
 ```
 
 ### While ciklus data frame-ekkel
 ```{r, echo = TRUE, error = TRUE}
-## Iterálás data frame elemein for ciklussal
+## Iterálás data frame elemein while ciklussal
 # készítsünk egy 5 sorból és 2 oszlopból álló data frame-et
 df <- data.frame(numbers = 1:5, letters = c("a", "b", "c", "d", "e"),
                   stringsAsFactors = F)
@@ -482,6 +578,46 @@ while (j <= nrow(df)){
   j <- j + 1
 }
 df
+
+## Függvényesítve
+# függvény, ami megszorozza egy tetszőleges df tetszőleges sorát adott számmal
+# a megadott oszlopnak számnak kell lennie
+df_multiply_v2 <- function(input_df, column, multiply_by = 2) {
+  if (class(input_df[[column]]) == "integer") {
+    i <- 1
+    while (i <= nrow(input_df)) {
+      input_df[i, column] <- input_df[i, column] * multiply_by
+      i <- i + 1
+    }
+    input_df
+  } else {
+    print("A megadott oszlop nem szám típusú.")
+  }
+}
+
+df <- data.frame(numbers = 1:5, letters = c("a", "b", "c", "d", "e"),
+                  stringsAsFactors = F)
+df_multiply_v2(df, "numbers")
+df_multiply_v2(df, "letters")
+
+# függvény, ami egy tetszőleges df teszőleges oszlopához hozzáfűz
+# egy tetszőleges karaktert
+# a megadott oszlopnak karakter típusúnak kell lennie
+df_paste_v2 <- function(input_df, column, paste_character = "a") {
+  if (class(input_df[[column]]) == "character") {
+    i <- 1
+    while (i <= nrow(input_df)) {
+      input_df[i, column] <- paste0(input_df[i, column], "a")
+      i <- i + 1
+    }
+    input_df
+  } else {
+    print("A megadott oszlop nem karakter típusú.")
+  }
+}
+
+df_paste_v2(df, "numbers")
+df_paste_v2(df, "letters")
 
 ```
 

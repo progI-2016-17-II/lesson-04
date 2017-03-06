@@ -356,11 +356,7 @@ ifelse(numbers == 1, &quot;Ez valóban 1.&quot;, &quot;Ez nem 1.&quot;)</code></
 <pre class="r"><code>## Függvénybe szerkesztve
 # előző if-else-es check_number függvényt írjuk át
 check_number_v2 &lt;- function(number) {
-  if (number == 1) {
-    print(&quot;Ez valóban 1.&quot;)
-  } else {
-    print(&quot;Ez nem 1.&quot;)
-  }
+  ifelse (number == 1, &quot;Ez valóban 1.&quot;, &quot;Ez nem 1.&quot;)
 }
 
 check_number_v2(1)</code></pre>
@@ -503,6 +499,46 @@ m</code></pre>
 ## [3,]  51.5    4
 ## [4,] 104.0    9
 ## [5,] 105.0   10</code></pre>
+<pre class="r"><code>## Függvényesítve
+# függvény, ami hozzáad egy tetszőleges mátrix első oszlopában lévő 
+# elemeihez 100-at
+matrix_add_100 &lt;- function(input_matrix) {
+  for (i in 1:nrow(input_matrix)) {
+    input_matrix[i, 1] &lt;- input_matrix[i, 1] + 100
+  }
+  input_matrix
+}
+
+matrix_add_100(matrix(1:10, 5, 2))</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]  101    6
+## [2,]  102    7
+## [3,]  103    8
+## [4,]  104    9
+## [5,]  105   10</code></pre>
+<pre class="r"><code># függvény, ami elosztja adott számmal minden oszlop 3. elemét tetszőleges 
+# mátrixon
+# a mátrixnak legalább 3 sorának kell lennie
+matrix_divided &lt;- function(input_matrix, divide_by = 2) {
+  if (nrow(input_matrix) &gt;= 3) {
+      for (i in 1:ncol(input_matrix)) {
+        input_matrix[3, i] &lt;- input_matrix[3, i] / divide_by
+      }
+      input_matrix
+  } else {
+    print(&quot;Ennek a mátrixnak kevesebb sora van, mint 3.&quot;)
+  }
+}
+
+matrix_divided(matrix(1:10, 5, 2), 3)</code></pre>
+<pre><code>##      [,1]      [,2]
+## [1,]    1  6.000000
+## [2,]    2  7.000000
+## [3,]    1  2.666667
+## [4,]    4  9.000000
+## [5,]    5 10.000000</code></pre>
+<pre class="r"><code>matrix_divided(matrix(1:10, 2, 5), 3)</code></pre>
+<pre><code>## [1] &quot;Ennek a mátrixnak kevesebb sora van, mint 3.&quot;</code></pre>
 </div>
 <div id="for-ciklus-data-frame-ekkel" class="section level3">
 <h3>For ciklus data frame-ekkel</h3>
@@ -539,6 +575,54 @@ df</code></pre>
 ## 3       6      ca
 ## 4       8      da
 ## 5      10      ea</code></pre>
+<pre class="r"><code>## Függvényesítve
+# függvény, ami megszorozza egy tetszőleges df tetszőleges sorát adott számmal
+# a megadott oszlopnak számnak kell lennie
+df_multiply &lt;- function(input_df, column, multiply_by = 2) {
+  if (class(input_df[[column]]) == &quot;integer&quot;) {
+    for (i in 1:nrow(input_df)){
+      input_df[i, column] &lt;- input_df[i, column] * multiply_by
+    }
+    input_df
+  } else {
+    print(&quot;A megadott oszlop nem szám típusú.&quot;)
+  }
+}
+
+df &lt;- data.frame(numbers = 1:5, letters = c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;),
+                  stringsAsFactors = F)
+df_multiply(df, &quot;numbers&quot;)</code></pre>
+<pre><code>##   numbers letters
+## 1       2       a
+## 2       4       b
+## 3       6       c
+## 4       8       d
+## 5      10       e</code></pre>
+<pre class="r"><code>df_multiply(df, &quot;letters&quot;)</code></pre>
+<pre><code>## [1] &quot;A megadott oszlop nem szám típusú.&quot;</code></pre>
+<pre class="r"><code># függvény, ami egy tetszőleges df teszőleges oszlopához hozzáfűz
+# egy tetszőleges karaktert
+# a megadott oszlopnak karakter típusúnak kell lennie
+df_paste &lt;- function(input_df, column, paste_character = &quot;a&quot;) {
+  if (class(input_df[[column]]) == &quot;character&quot;) {
+    for (i in 1:nrow(input_df)){
+      input_df[i, column] &lt;- paste0(input_df[i, column], &quot;a&quot;)
+    }
+    input_df
+  } else {
+    print(&quot;A megadott oszlop nem karakter típusú.&quot;)
+  }
+}
+
+df_paste(df, &quot;numbers&quot;)</code></pre>
+<pre><code>## [1] &quot;A megadott oszlop nem karakter típusú.&quot;</code></pre>
+<pre class="r"><code>df_paste(df, &quot;letters&quot;)</code></pre>
+<pre><code>##   numbers letters
+## 1       1      aa
+## 2       2      ba
+## 3       3      ca
+## 4       4      da
+## 5       5      ea</code></pre>
 </div>
 <div id="for-ciklus-menetenek-befolyasolasa" class="section level3">
 <h3>For ciklus menetének befolyásolása</h3>
@@ -611,7 +695,7 @@ while (x &lt;= 10) {
 ## [1] 10</code></pre>
 <div id="while-ciklus-data-frame-ekkel" class="section level3">
 <h3>While ciklus data frame-ekkel</h3>
-<pre class="r"><code>## Iterálás mátrix elemein for ciklussal
+<pre class="r"><code>## Iterálás mátrix elemein while ciklussal
 # készítsünk egy 5x2-ös mátrixot, ami 1-től 10-ig tartalmazza az egész számokat
 m &lt;- matrix(1:10, 5, 2)
 m</code></pre>
@@ -647,10 +731,54 @@ m</code></pre>
 ## [3,]  51.5    4
 ## [4,] 104.0    9
 ## [5,] 105.0   10</code></pre>
+<pre class="r"><code>## Függvényesítve
+# függvény, ami hozzáad egy tetszőleges mátrix első oszlopában lévő 
+# elemeihez 100-at
+matrix_add_100_v2 &lt;- function(input_matrix) {
+  i &lt;- 1
+  while (i &lt;= nrow(input_matrix)) {
+    input_matrix[i, 1] &lt;- input_matrix[i, 1] + 100
+    i &lt;- i + 1
+  }
+  input_matrix
+}
+
+matrix_add_100_v2(matrix(1:10, 5, 2))</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]  101    6
+## [2,]  102    7
+## [3,]  103    8
+## [4,]  104    9
+## [5,]  105   10</code></pre>
+<pre class="r"><code># függvény, ami elosztja adott számmal minden oszlop 3. elemét tetszőleges 
+# mátrixon
+# a mátrixnak legalább 3 sorának kell lennie
+matrix_divided_v2 &lt;- function(input_matrix, divide_by = 2) {
+  if (nrow(input_matrix) &gt;= 3) {
+      i &lt;- 1
+      while (i &lt;= ncol(input_matrix)) {
+        input_matrix[3, i] &lt;- input_matrix[3, i] / divide_by
+        i &lt;- i + 1
+      }
+      input_matrix
+  } else {
+    print(&quot;Ennek a mátrixnak kevesebb sora van, mint 3.&quot;)
+  }
+}
+
+matrix_divided_v2(matrix(1:10, 5, 2), 3)</code></pre>
+<pre><code>##      [,1]      [,2]
+## [1,]    1  6.000000
+## [2,]    2  7.000000
+## [3,]    1  2.666667
+## [4,]    4  9.000000
+## [5,]    5 10.000000</code></pre>
+<pre class="r"><code>matrix_divided_v2(matrix(1:10, 2, 5), 3)</code></pre>
+<pre><code>## [1] &quot;Ennek a mátrixnak kevesebb sora van, mint 3.&quot;</code></pre>
 </div>
 <div id="while-ciklus-data-frame-ekkel-1" class="section level3">
 <h3>While ciklus data frame-ekkel</h3>
-<pre class="r"><code>## Iterálás data frame elemein for ciklussal
+<pre class="r"><code>## Iterálás data frame elemein while ciklussal
 # készítsünk egy 5 sorból és 2 oszlopból álló data frame-et
 df &lt;- data.frame(numbers = 1:5, letters = c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;),
                   stringsAsFactors = F)
@@ -687,6 +815,58 @@ df</code></pre>
 ## 3       6      ca
 ## 4       8      da
 ## 5      10      ea</code></pre>
+<pre class="r"><code>## Függvényesítve
+# függvény, ami megszorozza egy tetszőleges df tetszőleges sorát adott számmal
+# a megadott oszlopnak számnak kell lennie
+df_multiply_v2 &lt;- function(input_df, column, multiply_by = 2) {
+  if (class(input_df[[column]]) == &quot;integer&quot;) {
+    i &lt;- 1
+    while (i &lt;= nrow(input_df)) {
+      input_df[i, column] &lt;- input_df[i, column] * multiply_by
+      i &lt;- i + 1
+    }
+    input_df
+  } else {
+    print(&quot;A megadott oszlop nem szám típusú.&quot;)
+  }
+}
+
+df &lt;- data.frame(numbers = 1:5, letters = c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;),
+                  stringsAsFactors = F)
+df_multiply_v2(df, &quot;numbers&quot;)</code></pre>
+<pre><code>##   numbers letters
+## 1       2       a
+## 2       4       b
+## 3       6       c
+## 4       8       d
+## 5      10       e</code></pre>
+<pre class="r"><code>df_multiply_v2(df, &quot;letters&quot;)</code></pre>
+<pre><code>## [1] &quot;A megadott oszlop nem szám típusú.&quot;</code></pre>
+<pre class="r"><code># függvény, ami egy tetszőleges df teszőleges oszlopához hozzáfűz
+# egy tetszőleges karaktert
+# a megadott oszlopnak karakter típusúnak kell lennie
+df_paste_v2 &lt;- function(input_df, column, paste_character = &quot;a&quot;) {
+  if (class(input_df[[column]]) == &quot;character&quot;) {
+    i &lt;- 1
+    while (i &lt;= nrow(input_df)) {
+      input_df[i, column] &lt;- paste0(input_df[i, column], &quot;a&quot;)
+      i &lt;- i + 1
+    }
+    input_df
+  } else {
+    print(&quot;A megadott oszlop nem karakter típusú.&quot;)
+  }
+}
+
+df_paste_v2(df, &quot;numbers&quot;)</code></pre>
+<pre><code>## [1] &quot;A megadott oszlop nem karakter típusú.&quot;</code></pre>
+<pre class="r"><code>df_paste_v2(df, &quot;letters&quot;)</code></pre>
+<pre><code>##   numbers letters
+## 1       1      aa
+## 2       2      ba
+## 3       3      ca
+## 4       4      da
+## 5       5      ea</code></pre>
 </div>
 </div>
 <div id="irodalom" class="section level2">
