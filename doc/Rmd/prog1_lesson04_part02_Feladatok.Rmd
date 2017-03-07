@@ -1,0 +1,99 @@
+---
+title: "2. Feladatok"
+subtitle: |
+  | Kurzus: Programozás I. 4. óra
+author: |
+  | Oktató: Balogh Kitti kttblgh@gmail.com
+date: "Időpont: 2017-03-07"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = '../../')
+```
+
+---
+
+## I. Feladat
+1. A ```lesson-03``` projekt ```src``` mappájában nyiss egy új R szkriptet ```prog1_lesson04_part02_Feladatok_functions.R``` néven! A következő feladatokban megírandó függvényeket ebbe a szkriptbe írd!
+2. A ```lesson-03``` projekt ```src``` mappájában nyiss egy új R szkriptet ```prog1_lesson04_part02_Feladatok.R``` néven! A függvények definiálásán túl mindent ebbe a szkriptbe írj!
+3. A ```prog1_lesson04_part02_Feladatok.R``` szkriptben készíts kikommentelt fejlécet is, amiben megadod a következőket: 
+    - fájl címe (Feladatok)
+    - kurzus neve (Programozás I.)
+    - óra sorszáma (4. óra)
+    - neved
+    - dátum (2017-03-07)
+4. Figyelj, hogy kommentelj, és minél jobban betartsd a R kódírási stílusra vonatkozó irányelveket!
+
+---
+
+## II. Feladat
+Az 1. házi feladatban a ```fivethirtyeight``` package ```tarantino``` datasetjével kellett dolgozni. Volt egy olyan feladat, amiben egy új ```year``` nevű oszlopba kellett beírni a filmek megjelenési dátumát. Ezt a feladatot többféleképp meg lehetett oldani:
+  
+  * data frame indexeléssel
+  * ifelse-ekkel
+  * for ciklusban if-else szerkezetekkel
+    
+1. Hívd be a datasetet!
+2. Válassz ki kettő (a házi megoldásodtól eltérő) megoldási módot és próbáld így megoldani a feladatot. Filmek megjelenési dátuma:
+    * Reservoir Dogs: 1992
+    * Pulp Fiction: 1994
+    * Kill Bill: Vol. 1: 2003
+    * Kill Bill: Vol. 2: 2004
+    * Jackie Brown: 1997
+    * Inglorious Basterds: 2009
+    * Django Unchained: 2012
+
+---
+
+## III. Feladat
+1. Most készíts egy újabb oszlopot ```decade``` néven, amiben az előző oszlopból kiindulva határozd meg, hogy melyik évtizedben készült a film:
+    * 1990s
+    * 2000s
+    * 2010s
+2. Nézd meg, melyik évtizedben hány halál és káromkodás volt!
+3. Nézd meg, hogy a halálok és a káromkodások száma független-e az évtizedtől!
+
+---
+
+## IV. Feladat
+Előző órán írtunk egy ```greet_person_random``` függvényt. A függvény célja az volt, hogy egy köszöntéseket, illetve egy neveket tartalmazó vektorból random kiválasszon 1-1 elemet, majd kiprintelje a választott köszöntést és nevet "köszöntés, név!" formában.
+
+1. Most ezt bővítsük úgy, hogy a függvénynek legyen két argumentuma, ```greeting``` és ```name```. A függvény neve legyen ```greet_person```.
+2. Ha a függvényben az egyik argumentumnak értéket adunk meg, akkor nem választ a vektorból, hanem a megadott értéket printeli ki, viszont ha nem adunk meg neki értéket, akkor válasszon továbbra is véletlenszerűen. Hogy az argumentum kapott-e valamilyen értéket, a ```missing``` függvénnyel tudod például megnézni.
+3. A köszöntések vektorában ezek szerepeljenek:
+    - Hello
+    - Hi
+    - Good morning
+    - Yo
+    - Whattup
+    - How's it goin'
+    - Hey
+    - Goodbye
+4. A nevek vektorában ezek szerepeljenek:
+    - World
+    - Mom
+    - Miss Crabtree
+    - Adrian
+    - G
+    - Dude
+    - Jude
+    - Mr. Chips
+5. Próbáld ki a függvényt argumentumokkal és argumentumok nélkül is!
+
+---
+
+## V. Feladat
+1. Készíts egy 10 sorból és 2 oszlopból álló mátrixot standard normális eloszlásból vett értékekkel!
+2. For ciklussal iterálj végig a mátrix sorain és szorozz meg minden elemet 100-zal!
+3. Most while ciklussal iterálj végig a mátrix sorain és szorozz meg megint minden elemet 100-zal!
+4. Egy újabb for ciklusban oszd el 2-vel a mátrix elemeit, ha az elem páros, és szorozd meg 2-vel, ha páratlan!
+
+---
+
+## VI. Feladat
+1. Készíts egy 2 oszlopos data frame-et! Az első oszlop elemei legyenek: ```TRUE```, ```FALSE```, ```TRUE```. Az oszlop neve legyen ```booleans```. A második oszlop elemei legyenek: ```"a"```, ```"b"```, ```"b"```. Az oszlop neve legyen ```letters``` és legyen karakter típusú.
+2. For ciklussal iterálj végig a data frame-en és írd felül a data frame értékét 1-re, ha az elem értéke ```TRUE``` vagy ```"a"```, és 0-ra, ha az elem értéke ```FALSE``` vagy ```"b"```!
+
+---
