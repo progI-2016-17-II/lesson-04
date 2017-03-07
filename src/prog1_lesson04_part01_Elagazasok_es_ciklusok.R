@@ -6,7 +6,7 @@
 ######################
 
 #----Függvények behívása--------------------------------------------------------
-source("src/prog1_lesson04_part01_Elagazasok_es_ciklusok_functions")
+source("src/prog1_lesson04_part01_Elagazasok_es_ciklusok_functions.R")
 
 #----Elágazások - if------------------------------------------------------------
 ## if szerkezete (ne futtasd le!)
