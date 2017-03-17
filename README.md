@@ -25,7 +25,7 @@ Learn about control statements and loops in R.
 	* Literature
 
 * Part 2
-	* Assignments
+	* Exercises
 
 ---
 
